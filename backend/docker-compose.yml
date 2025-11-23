@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: vocab-backend
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - EXCEL_FILE=/data/vocab.xlsx
+    volumes:
+      # Mount data directory to persist Excel file
+      - ./data:/data
+      # Also mount src/vocab.xlsx as fallback if data directory is empty
+      - ./src/vocab.xlsx:/app/src/vocab.xlsx:ro
+    restart: unless-stopped
+    networks:
+      - vocab-network
+
+networks:
+  vocab-network:
+    driver: bridge
+

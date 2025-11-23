@@ -1,0 +1,148 @@
+import { useState, useEffect } from 'react';
+import { Check, X, ArrowRight, HelpCircle, Volume2 } from 'lucide-react';
+import type { QuizQuestion } from '../../types';
+
+interface QuestionCardProps {
+  question: QuizQuestion;
+  questionNumber: number;
+  totalQuestions: number;
+  onAnswer: (isCorrect: boolean) => void;
+  onNext: () => void;
+}
+
+export default function QuestionCard({ question, questionNumber, totalQuestions, onAnswer, onNext }: QuestionCardProps) {
+  const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
+  const [isAnswered, setIsAnswered] = useState(false);
+
+  useEffect(() => {
+    setSelectedAnswer(null);
+    setIsAnswered(false);
+  }, [question]);
+
+  const handleOptionClick = (optionText: string, isCorrect: boolean) => {
+    if (isAnswered) return;
+    setSelectedAnswer(optionText);
+    setIsAnswered(true);
+    onAnswer(isCorrect);
+  };
+
+  const speak = (text: string) => {
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = 'en-US';
+    window.speechSynthesis.speak(utterance);
+  };
+
+  const getButtonClass = (optionText: string, isCorrect: boolean) => {
+    if (!isAnswered) {
+      return 'bg-white border-gray-200 hover:bg-gray-50 hover:border-gray-300 dark:bg-slate-900 dark:border-slate-800 dark:hover:bg-slate-800 dark:hover:border-slate-700';
+    }
+    if (optionText === selectedAnswer) {
+      return isCorrect
+        ? 'bg-green-50 border-green-500 text-green-700 dark:bg-green-900/20 dark:border-green-500/50 dark:text-green-400'
+        : 'bg-red-50 border-red-500 text-red-700 dark:bg-red-900/20 dark:border-red-500/50 dark:text-red-400';
+    }
+    if (isCorrect) {
+      return 'bg-green-50 border-green-500 text-green-700 dark:bg-green-900/20 dark:border-green-500/50 dark:text-green-400';
+    }
+    return 'bg-gray-50 border-gray-200 opacity-50 dark:bg-slate-900 dark:border-slate-800';
+  };
+
+  return (
+    <div className="w-full max-w-2xl mx-auto">
+      {/* Progress Bar */}
+      <div className="mb-6">
+        <div className="flex justify-between mb-2">
+          <span className="text-xs font-medium text-gray-500 dark:text-slate-500">Tiến độ</span>
+          <span className="text-xs font-bold text-gray-900 dark:text-white">{questionNumber} / {totalQuestions}</span>
+        </div>
+        <div className="w-full bg-gray-200 rounded-full h-1.5 overflow-hidden dark:bg-slate-800">
+          <div
+            className="bg-gray-900 h-1.5 rounded-full transition-all duration-300 ease-out dark:bg-white"
+            style={{ width: `${(questionNumber / totalQuestions) * 100}%` }}
+          />
+        </div>
+      </div>
+
+      <div className="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden dark:bg-slate-900 dark:border-slate-800">
+        <div className="p-6">
+          <div className="flex items-start gap-3 mb-6">
+            <div className="p-2 bg-gray-100 rounded-lg dark:bg-slate-800">
+              <HelpCircle className="w-5 h-5 text-gray-600 dark:text-slate-400" />
+            </div>
+            <div className="flex-1">
+              <p className="text-gray-500 text-xs font-medium uppercase tracking-wider mb-1 dark:text-slate-500">
+                {question.type === 'word-to-definition' ? 'Định nghĩa' : 'Từ vựng'}
+              </p>
+              <div className="flex items-center gap-3">
+                <h2 className="text-xl font-bold text-gray-900 leading-tight dark:text-white">
+                  {question.questionText}
+                </h2>
+                {question.type === 'definition-to-word' && (
+                  <button
+                    onClick={() => speak(question.questionText)}
+                    className="p-1.5 text-gray-400 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800"
+                    title="Nghe câu hỏi"
+                  >
+                    <Volume2 className="w-4 h-4" />
+                  </button>
+                )}
+              </div>
+            </div>
+          </div>
+
+          <div className="space-y-2.5">
+            {question.options.map((option) => (
+              <button
+                key={option.text}
+                onClick={() => handleOptionClick(option.text, option.isCorrect)}
+                disabled={isAnswered}
+                className={`group relative w-full text-left p-3.5 rounded-lg border transition-all duration-200 ${getButtonClass(option.text, option.isCorrect)}`}
+              >
+                <div className="flex items-center justify-between">
+                  <span className="font-medium text-sm text-gray-900 dark:text-slate-200">{option.text}</span>
+                  {isAnswered && option.isCorrect && <Check className="w-4 h-4 text-green-600 dark:text-green-500" />}
+                  {isAnswered && !option.isCorrect && option.text === selectedAnswer && <X className="w-4 h-4 text-red-600 dark:text-red-500" />}
+                </div>
+              </button>
+            ))}
+          </div>
+
+          {isAnswered && (
+            <div className="mt-6 pt-6 border-t border-gray-100 animate-in fade-in slide-in-from-bottom-2 duration-200 dark:border-slate-800">
+              <div className={`p-3 rounded-lg mb-4 text-sm ${selectedAnswer === question.correctAnswer ? 'bg-green-50 border border-green-100 dark:bg-green-900/10 dark:border-green-500/20' : 'bg-red-50 border border-red-100 dark:bg-red-900/10 dark:border-red-500/20'}`}>
+                <h3 className={`font-bold mb-1 ${selectedAnswer === question.correctAnswer ? 'text-green-700 dark:text-green-400' : 'text-red-700 dark:text-red-400'}`}>
+                  {selectedAnswer === question.correctAnswer ? 'Chính xác!' : 'Chưa chính xác!'}
+                </h3>
+                <div className="flex items-center gap-2">
+                  <p className="text-gray-700 dark:text-slate-300">
+                    <span className="font-semibold">{question.word}</span>: {question.correctAnswer}
+                  </p>
+                  <button
+                    onClick={() => speak(question.word)}
+                    className="p-1 text-gray-400 hover:text-gray-900 hover:bg-gray-100 rounded transition-colors dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800"
+                  >
+                    <Volume2 className="w-3 h-3" />
+                  </button>
+                </div>
+                {question.example && (
+                  <p className="mt-1.5 text-xs italic text-gray-500 border-l-2 border-gray-300 pl-2 dark:text-slate-500 dark:border-slate-700">
+                    "{question.example}"
+                  </p>
+                )}
+              </div>
+
+              <button
+                onClick={onNext}
+                className="w-full flex items-center justify-center gap-2 px-4 py-2.5 font-semibold text-sm text-white bg-gray-900 hover:bg-gray-800 rounded-lg transition-colors dark:bg-slate-800 dark:hover:bg-slate-700"
+              >
+                <span>Câu tiếp theo</span>
+                <ArrowRight className="w-4 h-4" />
+              </button>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
