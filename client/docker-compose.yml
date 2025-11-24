@@ -1,0 +1,10 @@
+version: '3.8'
+
+services:
+  client:
+    build: .
+    ports:
+      - "8080:80"
+    environment:
+      - VITE_API_URL=http://localhost:3000/api/vocab
+    restart: always

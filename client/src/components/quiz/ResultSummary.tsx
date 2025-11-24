@@ -21,27 +21,27 @@ export default function ResultSummary({ score, totalQuestions, questions, userAn
 
   return (
     <div className="w-full max-w-2xl mx-auto">
-      <div className="bg-slate-900 border border-slate-800 rounded-xl shadow-sm overflow-hidden">
-        <div className="p-8 text-center border-b border-slate-800">
+      <div className="bg-card border border-border rounded-xl shadow-sm overflow-hidden">
+        <div className="p-8 text-center border-b border-border">
           <div className="inline-flex p-3 bg-yellow-900/20 rounded-full mb-4">
             <Trophy className="w-8 h-8 text-yellow-500" />
           </div>
 
-          <h2 className="text-2xl font-bold text-white mb-2">Hoàn thành!</h2>
-          <p className="text-slate-400 mb-6">Bạn đã hoàn thành bài kiểm tra</p>
+          <h2 className="text-2xl font-bold text-foreground mb-2">Hoàn thành!</h2>
+          <p className="text-muted-foreground mb-6">Bạn đã hoàn thành bài kiểm tra</p>
 
           <div className="flex justify-center items-end gap-2 mb-2">
-            <span className="text-4xl font-bold text-white">
+            <span className="text-4xl font-bold text-foreground">
               {score}
             </span>
-            <span className="text-xl text-slate-500 font-medium mb-1">/ {totalQuestions}</span>
+            <span className="text-xl text-muted-foreground font-medium mb-1">/ {totalQuestions}</span>
           </div>
-          <p className="text-slate-400 font-medium">
+          <p className="text-muted-foreground font-medium">
             {percentage >= 80 ? 'Xuất sắc! 🎉' : percentage >= 50 ? 'Làm tốt lắm! 👍' : 'Cố gắng hơn nhé! 💪'}
           </p>
         </div>
 
-        <div className="p-6 bg-slate-950">
+        <div className="p-6 bg-muted/30">
           {incorrectQuestions.length > 0 ? (
             <div className="mb-6">
               <div className="flex items-center gap-2 mb-4 text-red-500">
@@ -51,14 +51,14 @@ export default function ResultSummary({ score, totalQuestions, questions, userAn
 
               <div className="space-y-3">
                 {incorrectQuestions.map((q, index) => (
-                  <div key={index} className="p-3 bg-slate-900 border border-slate-800 rounded-lg text-left">
+                  <div key={index} className="p-3 bg-card border border-border rounded-lg text-left">
                     <div className="flex items-start gap-3">
                       <XCircle className="w-4 h-4 text-red-500 flex-shrink-0 mt-0.5" />
                       <div>
-                        <p className="font-bold text-white text-sm mb-1">{q.word}</p>
-                        <p className="text-slate-400 text-sm mb-1">{q.correctAnswer}</p>
+                        <p className="font-bold text-foreground text-sm mb-1">{q.word}</p>
+                        <p className="text-muted-foreground text-sm mb-1">{q.correctAnswer}</p>
                         {q.example && (
-                          <p className="text-xs italic text-slate-500">
+                          <p className="text-xs italic text-muted-foreground">
                             "{q.example}"
                           </p>
                         )}
@@ -80,7 +80,7 @@ export default function ResultSummary({ score, totalQuestions, questions, userAn
 
           <button
             onClick={onRestart}
-            className="w-full flex items-center justify-center gap-2 px-4 py-2.5 font-semibold text-sm text-white bg-slate-800 hover:bg-slate-700 rounded-lg transition-colors"
+            className="w-full flex items-center justify-center gap-2 px-4 py-2.5 font-semibold text-sm text-primary-foreground bg-primary hover:bg-primary/90 rounded-lg transition-colors"
           >
             <RefreshCw className="w-4 h-4" />
             Làm bài mới

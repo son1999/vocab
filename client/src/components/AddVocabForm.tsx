@@ -24,53 +24,54 @@ const AddVocabForm: React.FC<AddVocabFormProps> = ({ onAdd }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="p-6 bg-white border-2 border-gray-300 rounded-xl shadow-sm mb-8 dark:bg-slate-900 dark:border-slate-800">
-      <h2 className="flex items-center gap-2 mb-4 text-lg font-bold text-gray-900 dark:text-slate-100">
-        <div className="p-1.5 bg-gray-200 rounded-md dark:bg-slate-800">
-          <Plus className="w-4 h-4 text-gray-700 dark:text-slate-400" />
+
+    <form onSubmit={handleSubmit} className="p-6 bg-card border border-border rounded-xl shadow-sm mb-8">
+      <h2 className="flex items-center gap-2 mb-4 text-lg font-bold text-foreground">
+        <div className="p-1.5 bg-muted rounded-md">
+          <Plus className="w-4 h-4 text-muted-foreground" />
         </div>
         Thêm từ vựng mới
       </h2>
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
         <div className="space-y-1.5">
-          <label className="text-xs font-medium text-gray-600 ml-1 dark:text-slate-400">Từ vựng</label>
+          <label className="text-xs font-medium text-muted-foreground ml-1">Từ vựng</label>
           <div className="relative">
-            <Type className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 dark:text-slate-500" />
+            <Type className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
             <input
               type="text"
               placeholder="Ví dụ: Serendipity"
               value={word}
               onChange={(e) => setWord(e.target.value)}
-              className="w-full pl-9 pr-3 py-2 bg-gray-50 border-2 border-gray-300 rounded-lg text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-gray-500 focus:ring-1 focus:ring-gray-500 transition-all dark:bg-slate-950 dark:border-slate-800 dark:text-white dark:placeholder:text-slate-600 dark:focus:border-slate-600 dark:focus:ring-slate-600"
+              className="w-full pl-9 pr-3 py-2 bg-background border border-input rounded-lg text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-ring focus:ring-1 focus:ring-ring transition-all"
             />
           </div>
         </div>
 
         <div className="space-y-1.5">
-          <label className="text-xs font-medium text-gray-600 ml-1 dark:text-slate-400">Định nghĩa</label>
+          <label className="text-xs font-medium text-muted-foreground ml-1">Định nghĩa</label>
           <div className="relative">
-            <BookOpen className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 dark:text-slate-500" />
+            <BookOpen className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
             <input
               type="text"
               placeholder="Nghĩa của từ..."
               value={definition}
               onChange={(e) => setDefinition(e.target.value)}
-              className="w-full pl-9 pr-3 py-2 bg-gray-50 border-2 border-gray-300 rounded-lg text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-gray-500 focus:ring-1 focus:ring-gray-500 transition-all dark:bg-slate-950 dark:border-slate-800 dark:text-white dark:placeholder:text-slate-600 dark:focus:border-slate-600 dark:focus:ring-slate-600"
+              className="w-full pl-9 pr-3 py-2 bg-background border border-input rounded-lg text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-ring focus:ring-1 focus:ring-ring transition-all"
             />
           </div>
         </div>
 
         <div className="space-y-1.5">
-          <label className="text-xs font-medium text-gray-600 ml-1 dark:text-slate-400">Ví dụ</label>
+          <label className="text-xs font-medium text-muted-foreground ml-1">Ví dụ</label>
           <div className="relative">
-            <Quote className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 dark:text-slate-500" />
+            <Quote className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
             <input
               type="text"
               placeholder="Đặt câu ví dụ..."
               value={example}
               onChange={(e) => setExample(e.target.value)}
-              className="w-full pl-9 pr-3 py-2 bg-gray-50 border-2 border-gray-300 rounded-lg text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-gray-500 focus:ring-1 focus:ring-gray-500 transition-all dark:bg-slate-950 dark:border-slate-800 dark:text-white dark:placeholder:text-slate-600 dark:focus:border-slate-600 dark:focus:ring-slate-600"
+              className="w-full pl-9 pr-3 py-2 bg-background border border-input rounded-lg text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-ring focus:ring-1 focus:ring-ring transition-all"
             />
           </div>
         </div>
@@ -78,7 +79,7 @@ const AddVocabForm: React.FC<AddVocabFormProps> = ({ onAdd }) => {
 
       <button
         type="submit"
-        className="w-full mt-6 px-4 py-2.5 font-semibold text-sm text-white bg-gray-900 rounded-lg hover:bg-gray-800 transition-colors shadow-sm dark:bg-slate-800 dark:hover:bg-slate-700"
+        className="w-full mt-6 px-4 py-2.5 font-semibold text-sm text-primary-foreground bg-primary rounded-lg hover:bg-primary/90 transition-colors shadow-sm"
       >
         Thêm vào danh sách
       </button>

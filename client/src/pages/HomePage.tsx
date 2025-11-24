@@ -57,16 +57,16 @@ export default function HomePage() {
     <>
       <header className="flex flex-col sm:flex-row items-center justify-between mb-8 gap-6">
         <div className="text-center sm:text-left">
-          <h1 className="text-3xl font-bold text-gray-900 tracking-tight dark:text-white mb-2">
+          <h1 className="text-3xl font-bold text-foreground tracking-tight mb-2">
             Sổ tay từ vựng
           </h1>
-          <p className="text-gray-600 dark:text-slate-300">Quản lý và theo dõi hành trình học tập của bạn</p>
+          <p className="text-muted-foreground">Quản lý và theo dõi hành trình học tập của bạn</p>
         </div>
 
         <a
           href={`${API_URL}/file`}
           download
-          className="inline-flex items-center gap-2 px-4 py-2 font-medium text-white bg-gray-900 rounded-lg hover:bg-gray-800 transition-colors shadow-sm border border-gray-900 dark:bg-slate-800 dark:hover:bg-slate-700 dark:border-slate-700"
+          className="inline-flex items-center gap-2 px-4 py-2 font-medium text-primary-foreground bg-primary rounded-lg hover:bg-primary/90 transition-colors shadow-sm"
         >
           <Download className="w-4 h-4" />
           <span>Tải xuống Excel</span>
@@ -78,17 +78,17 @@ export default function HomePage() {
           <AddVocabForm onAdd={handleAddVocab} />
         </div>
         <div className="md:col-span-1">
-          <div className="h-full p-6 bg-white border-2 border-gray-300 rounded-xl flex flex-col justify-center items-center text-center dark:bg-slate-900 dark:border-slate-800">
-            <h3 className="text-gray-600 font-medium mb-2 dark:text-slate-400">Tổng số từ vựng</h3>
-            <span className="text-5xl font-bold text-gray-900 mb-2 dark:text-white">{vocabList.length}</span>
-            <p className="text-xs text-gray-500 dark:text-slate-500">từ đã lưu</p>
+          <div className="h-full p-6 bg-card border border-border rounded-xl flex flex-col justify-center items-center text-center shadow-sm">
+            <h3 className="text-muted-foreground font-medium mb-2">Tổng số từ vựng</h3>
+            <span className="text-5xl font-bold text-foreground mb-2">{vocabList.length}</span>
+            <p className="text-xs text-muted-foreground">từ đã lưu</p>
           </div>
         </div>
       </div>
 
       <div className="mb-4 flex items-center justify-between">
-        <h2 className="text-xl font-bold text-gray-900 dark:text-slate-100">Từ vựng mới nhất</h2>
-        <span className="text-sm text-gray-500 dark:text-slate-400">Hiển thị 3 từ gần đây</span>
+        <h2 className="text-xl font-bold text-foreground">Từ vựng mới nhất</h2>
+        <span className="text-sm text-muted-foreground">Hiển thị 3 từ gần đây</span>
       </div>
 
       <VocabList vocabList={vocabList} limit={3} />

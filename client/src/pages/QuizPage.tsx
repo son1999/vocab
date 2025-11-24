@@ -55,12 +55,12 @@ export default function QuizPage() {
     <div className="w-full max-w-2xl mx-auto">
       {!currentQuestion && !isQuizOver ? (
         <div className="max-w-md mx-auto text-center py-12">
-          <div className="inline-flex p-3 bg-gray-100 rounded-full mb-6">
-            <Brain className="w-8 h-8 text-gray-900" />
+          <div className="inline-flex p-3 bg-muted rounded-full mb-6">
+            <Brain className="w-8 h-8 text-foreground" />
           </div>
 
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">Ôn tập từ vựng</h1>
-          <p className="text-gray-500 mb-8">Chọn số lượng câu hỏi để bắt đầu</p>
+          <h1 className="text-2xl font-bold text-foreground mb-2">Ôn tập từ vựng</h1>
+          <p className="text-muted-foreground mb-8">Chọn số lượng câu hỏi để bắt đầu</p>
 
           <div className="flex justify-center gap-3 mb-8">
             {QUESTION_COUNTS.map(count => (
@@ -68,8 +68,8 @@ export default function QuizPage() {
                 key={count}
                 onClick={() => setQuestionCount(count)}
                 className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${questionCount === count
-                  ? 'bg-gray-900 text-white shadow-sm'
-                  : 'bg-white border border-gray-200 text-gray-600 hover:bg-gray-50'
+                  ? 'bg-primary text-primary-foreground shadow-sm'
+                  : 'bg-card border border-border text-muted-foreground hover:bg-muted'
                   }`}
               >
                 {count}
@@ -79,7 +79,7 @@ export default function QuizPage() {
 
           <button
             onClick={startQuiz}
-            className="inline-flex items-center gap-2 px-6 py-2.5 font-semibold text-white bg-gray-900 rounded-lg hover:bg-gray-800 transition-colors shadow-sm dark:bg-slate-800 dark:hover:bg-slate-700"
+            className="inline-flex items-center gap-2 px-6 py-2.5 font-semibold text-primary-foreground bg-primary rounded-lg hover:bg-primary/90 transition-colors shadow-sm"
           >
             <Play className="w-4 h-4 fill-current" />
             <span>Bắt đầu ngay</span>
